@@ -17,7 +17,6 @@
     <modules>
         <module>services/storage</module>
         <module>services/user_service</module>
-        <module>services/message_broker</module>
     </modules>
 
     <properties>

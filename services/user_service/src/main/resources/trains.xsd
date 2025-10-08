@@ -1,0 +1,32 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://spring.io/guides/gs-producing-web-service"
+           targetNamespace="http://spring.io/guides/gs-producing-web-service" elementFormDefault="qualified">
+
+    <xs:element name="getTrainRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="trainNumber" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getTrainResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="train" type="tns:xmlTrain"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="xmlTrain">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="seriesName" type="xs:string"/>
+            <xs:element name="trainNumber" type="xs:long"/>
+            <xs:element name="dataBuild" type="xs:string"/>
+            <xs:element name="buildingMileage" type="xs:int"/>
+            <xs:element name="lastRepair" type="xs:string"/>
+            <xs:element name="condition" type="xs:string"/>
+            <xs:element name="imageUrl" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

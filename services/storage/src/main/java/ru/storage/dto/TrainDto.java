@@ -7,8 +7,7 @@ import java.time.LocalDate;
 
 @Data
 public class TrainDto {
-    @NotNull(message = "поле не может быть пустым")
-    private String series;
+    int id;
     @NotNull(message = "поле не может быть пустым")
     private String nameSeries;
     @NotNull(message = "поле не может быть пустым")

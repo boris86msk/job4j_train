@@ -18,12 +18,17 @@ public class Train {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String series;
+    @Column(name = "name_series")
     private String nameSeries;
+    @Column(name = "train_number")
     private int trainNumber;
+    @Column(name = "building_mileage")
     private int buildingMileage;
+    @Column(name = "data_build")
     private LocalDate dataBuild;
+    @Column(name = "last_repair")
     private String lastRepair;
     private String condition;
+    @Column(name = "image_url")
     private String imageUrl;
 }

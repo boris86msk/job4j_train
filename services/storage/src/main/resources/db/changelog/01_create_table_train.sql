@@ -1,7 +1,6 @@
 CREATE TABLE train
 (
     id               SERIAL PRIMARY KEY,
-    series           varchar(3) not null,
     name_series      varchar(20) not null,
     train_number     int4 not null unique,
     building_mileage int4 not null,
