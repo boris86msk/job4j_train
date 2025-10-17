@@ -1,4 +1,4 @@
-package ru.storage.service;
+package ru.storage.service.minio;
 
 import org.springframework.web.multipart.MultipartFile;
 

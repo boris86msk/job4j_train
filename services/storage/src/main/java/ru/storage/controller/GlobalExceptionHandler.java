@@ -7,7 +7,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import ru.storage.service.KafkaProducerService;
-import ru.storage.service.MinioFileException;
+import ru.storage.service.minio.MinioFileException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {

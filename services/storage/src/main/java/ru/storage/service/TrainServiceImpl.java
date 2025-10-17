@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.storage.dto.TrainInfo;
 import ru.storage.entity.Train;
 import ru.storage.repository.TrainRepository;
+import ru.storage.service.minio.MinioService;
 
 import java.util.UUID;
 

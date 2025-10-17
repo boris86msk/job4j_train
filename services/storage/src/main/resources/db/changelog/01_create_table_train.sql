@@ -6,6 +6,6 @@ CREATE TABLE train
     building_mileage int4 not null,
     data_build       timestamp not null,
     last_repair      varchar(6),
-    condition        varchar(10) not null,
+    condition        varchar(20) not null,
     image_url        varchar(1500)
 );

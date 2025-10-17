@@ -1,4 +1,4 @@
-package ru.storage.service;
+package ru.storage.service.minio;
 
 import io.minio.*;
 import io.minio.http.Method;
