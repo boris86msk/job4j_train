@@ -22,7 +22,7 @@ public class KafkaListenerService {
     @KafkaListener(topics = "num-request")
     public void put(final String trainNum) throws JsonProcessingException {
         long parseLong = Long.parseLong(trainNum);
-        log.info("message from 'num-request' " + trainNum);
+        log.info("message from 'num-request' {}", trainNum);
         Optional<Train> byTrainNumber = trainRepository.findByTrainNumber(parseLong);
         if (byTrainNumber.isPresent()) {
             Train train = byTrainNumber.get();

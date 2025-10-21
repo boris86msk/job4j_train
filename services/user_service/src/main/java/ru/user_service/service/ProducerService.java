@@ -23,7 +23,7 @@ public class ProducerService {
                 return result;
             }
             template.send(REQUEST_TOPIC, key);
-            log.info("Send message to topic '" + REQUEST_TOPIC + "'");
+            log.info("Send message to topic '{}'", REQUEST_TOPIC);
             return getResponse(key);
         }
         log.info("train number is not valid or null");

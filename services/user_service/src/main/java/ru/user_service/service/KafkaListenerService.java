@@ -24,6 +24,6 @@ public class KafkaListenerService {
         String trainNumber = String.valueOf(train.getTrainNumber());
 
         QueryPoolService.addResult(train);
-        log.info("Received a response in '" + RESPONSE_TOPIC + "'");
+        log.info("Received a response in '{}'", RESPONSE_TOPIC);
     }
 }

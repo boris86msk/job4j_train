@@ -24,7 +24,7 @@ public class UserController {
             description = "Получить данные одного объекта (Train) по номеру серии")
     @GetMapping("/one")
     public ResponseEntity<Train> getTrain(@RequestParam("message") String message) throws InterruptedException {
-        log.info("A request was received for train number '" + message + "'");
+        log.info("A request was received for train number '{}'", message);
         Train train = producer.sendRequestToStorage(message);
         return ResponseEntity.ok(train);
     }
