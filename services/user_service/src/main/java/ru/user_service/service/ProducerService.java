@@ -5,44 +5,51 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import ru.user_service.dto.Train;
 
+import java.util.concurrent.CompletableFuture;
+
 @Service
 @Slf4j
 public class ProducerService {
     private static final  String REQUEST_TOPIC = "num-request";
-    private int readPoolCount = 10;
     private final KafkaTemplate<String, String> template;
 
     public ProducerService(KafkaTemplate<String, String> template) {
         this.template = template;
     }
 
-    public Train sendRequestToStorage(String key) throws InterruptedException {
+    public CompletableFuture<Train> sendRequestToStorage(String key) {
         if (key != null && key.matches("^\\d{8}$")) {
             Train result = QueryPoolService.getTrainByNum(key);
             if (result != null) {
-                return result;
+                return CompletableFuture.completedFuture(result);
             }
             template.send(REQUEST_TOPIC, key);
             log.info("Send message to topic '{}'", REQUEST_TOPIC);
-            return getResponse(key);
+            return getResponseAsync(key);
         }
         log.info("train number is not valid or null");
         return null;
     }
 
-    private Train getResponse(String key) throws InterruptedException {
-        Train train = null;
-        while (readPoolCount > 0)  {
-            Thread.sleep(1000);
-            Train result = QueryPoolService.getTrainByNum(key);
-            if (result == null) {
-                readPoolCount -= 1;
-            } else {
-                train = result;
-                break;
+    private CompletableFuture<Train> getResponseAsync(String key) {
+        return CompletableFuture.supplyAsync(() -> {
+            Train train = null;
+            int attempts = 10;
+            while (attempts > 0) {
+                Train result = QueryPoolService.getTrainByNum(key);
+                if (result != null) {
+                    train = result;
+                    break;
+                }
+                attempts--;
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
             }
-        }
-        readPoolCount = 10;
-        return train;
+            return train;
+        });
     }
 }

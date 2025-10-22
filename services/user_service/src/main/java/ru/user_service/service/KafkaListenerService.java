@@ -21,7 +21,6 @@ public class KafkaListenerService {
         ObjectMapper mapper = new ObjectMapper();
         StringReader reader = new StringReader(stringTrain);
         Train train = mapper.readValue(reader, Train.class);
-        String trainNumber = String.valueOf(train.getTrainNumber());
 
         QueryPoolService.addResult(train);
         log.info("Received a response in '{}'", RESPONSE_TOPIC);

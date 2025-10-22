@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.user_service.dto.Train;
 import ru.user_service.service.ProducerService;
 
+import java.util.concurrent.CompletableFuture;
+
 @Slf4j
 @Tag(name = "UserController", description = " management APIs")
 @RestController
@@ -23,10 +25,10 @@ public class UserController {
     @Operation(summary = "Train by serial number",
             description = "Получить данные одного объекта (Train) по номеру серии")
     @GetMapping("/one")
-    public ResponseEntity<Train> getTrain(@RequestParam("message") String message) throws InterruptedException {
+    public CompletableFuture<Train> getTrain(@RequestParam("message") String message) {
         log.info("A request was received for train number '{}'", message);
-        Train train = producer.sendRequestToStorage(message);
-        return ResponseEntity.ok(train);
+        CompletableFuture<Train> response = producer.sendRequestToStorage(message);
+        return response;
     }
 
     @Operation(summary = "All Train from DB",

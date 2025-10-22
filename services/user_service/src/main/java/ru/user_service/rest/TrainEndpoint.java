@@ -11,6 +11,9 @@ import ru.user_service.dto.Train;
 import ru.user_service.service.ProducerService;
 import ru.user_service.service.TrainMapping;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
 
 @Endpoint
 public class TrainEndpoint {
@@ -25,14 +28,14 @@ public class TrainEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getTrainRequest")
     @ResponsePayload
-    public GetTrainResponse getTrainResponse(@RequestPayload GetTrainRequest request) throws InterruptedException {
+    public GetTrainResponse getTrainResponse(@RequestPayload GetTrainRequest request) throws InterruptedException, ExecutionException {
         GetTrainResponse response = new GetTrainResponse();
         String trainNumber = String.valueOf(request.getTrainNumber());
-        Train train = producerService.sendRequestToStorage(trainNumber);
+        CompletableFuture<Train> train = producerService.sendRequestToStorage(trainNumber);
 
         XmlTrain xmlTrain;
         if (train != null) {
-            xmlTrain = mapping.trainToXmlTrain(train);
+            xmlTrain = mapping.trainToXmlTrain(train.get());
         } else {
             xmlTrain = new XmlTrain();
         }
