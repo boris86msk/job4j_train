@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: storage-service
+  labels:
+    app: storage-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: storage-service
+  template:
+    metadata:
+      name: storage-service
+      labels:
+        app: storage-service
+    spec:
+      containers:
+        - name: storage-pod
+          image: boris86msk/storage_service
+          ports:
+            - containerPort: 9900
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: storage-pod-service
+spec:
+  selector:
+    app: storage_service
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+      nodePort: 32200
+      
