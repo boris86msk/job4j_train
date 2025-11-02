@@ -7,19 +7,19 @@ import java.util.HashMap;
 
 @Service
 public class QueryPoolService {
-    private static final HashMap<String, Train> pool = new HashMap<>();
+    private static final HashMap<String, Train> POOL = new HashMap<>();
 
     public static boolean checkRequest(String num) {
-        return pool.containsKey(num);
+        return POOL.containsKey(num);
     }
 
-    public static void addResult (Train train) {
+    public static void addResult(Train train) {
         long trainNumber = train.getTrainNumber();
-        pool.put(String.format("%08d", trainNumber), train);
+        POOL.put(String.format("%08d", trainNumber), train);
     }
 
     public static Train getTrainByNum(String key) {
-        Train train = pool.get(key);
+        Train train = POOL.get(key);
         return train;
     }
 }

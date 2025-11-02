@@ -6,7 +6,7 @@ import ru.user_service.dto.Train;
 
 @Service
 public class TrainMapping {
-    public XmlTrain trainToXmlTrain(Train train) {
+    public final XmlTrain trainToXmlTrain(Train train) {
         XmlTrain xmlTrain = new XmlTrain();
         xmlTrain.setId(train.getId());
         xmlTrain.setSeriesName(train.getSeriesName());
